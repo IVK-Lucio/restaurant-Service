@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+package grpc_service;
+import "google/protobuf/wrappers.proto";
+
+service Kent {
+	rpc book(Client) returns (google.protobuf.StringValue);
+	rpc deposit(Deposit) returns (google.protobuf.StringValue);
+}
+
+message Booking {
+	required Date dateOfBooking = 1;
+	required Time prefTime = 2;
+	required int32 numberOfGuests = 3;
+	optional double hoursDuration = 4 [default = 2];
+	optional Deposit deposit = 5;
+}
+
+message Deposit {
+	required double deposit = 1;
+	required string reference = 2;
+	required string confirmation = 3;
+}
+
+message Client {
+	required Booking booking = 1;
+	required string reference = 2;
+}
+
+message Date {
+	required int32 day = 1;
+	required int32 month = 2;
+	required int32 year = 3;
+}
+
+message Time {
+	required int32 hour = 1;
+	required int32 minute = 2;
+}
